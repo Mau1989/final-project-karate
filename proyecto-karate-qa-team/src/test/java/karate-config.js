@@ -3,7 +3,7 @@ function fn() {
 
   var config = {
     env: env,
-    urlBase: 'https://api.qateamperu.com/
+    urlBase: 'https://api.qateamperu.com'
   }
 
   return config;
