@@ -2,8 +2,12 @@ Feature: Creates a new auth token to use for access the final project features
 
   @login
   Scenario: TC01 - Successfully login
-    * def bodyLogin = read('classpath:resources/csv/auth/dataLogin.json')
+    * def responseRegister = call read('classpath:bdd/auth/registerAuth.feature@Register')
+    * def savedEmail = responseRegister.newEmail
+    * def bodyLogin = read('classpath:resources/csv/auth/dataRegister.json')
+    * print savedEmail
     * print bodyLogin
+    * set bodyLogin.email = savedEmail
     Given url urlBase
     And path '/api/login'
     And header Accept = 'application/json'

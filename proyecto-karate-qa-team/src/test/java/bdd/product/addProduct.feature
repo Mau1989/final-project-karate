@@ -3,6 +3,7 @@ Feature: Add a new product
 
 
   Background:
+
     * def responseLogin = call read('classpath:bdd/auth/loginAuth.feature@login')
     * def tokenAuth = responseLogin.token
     * print tokenAuth
@@ -12,8 +13,12 @@ Feature: Add a new product
 
   @ID
   Scenario: TC01 - Create a product successfully
+    * def result = Java.type('java.lang.Math').random() * 100 // Multiply by 100 for a value between 0 and 99
+    * def intResult = result.toFixed(0) // Round to nearest integer
     * def bodyCreateProduct = read('classpath:resources/csv/auth/newProductData.json')
     * print bodyCreateProduct
+    * def newProductId = 'MA0' + intResult
+    * set bodyCreateProduct.codigo = newProductId
     And path '/api/v1/producto'
     And request bodyCreateProduct
     When method post
